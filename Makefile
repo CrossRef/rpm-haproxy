@@ -3,13 +3,13 @@ MAINVERSION=2.2
 LUA_VERSION=5.3.5
 USE_LUA?=0
 NO_SUDO?=0
-USE_PROMETHEUS?=0
+USE_PROMETHEUS?=1
 VERSION=$(shell curl -s http://git.haproxy.org/git/haproxy-${MAINVERSION}.git/refs/tags/ | sed -n 's:.*>\(.*\)</a>.*:\1:p' | sed 's/^.//' | sort -rV | head -1)
 ifeq ("${VERSION}","./")
 		VERSION="${MAINVERSION}.0"
 endif
 RELEASE?=1
-EXTRA_CFLAGS?=0
+EXTRA_CFLAGS?="-DMAX_SESS_STKCTR=12"
 
 all: build
 
